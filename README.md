@@ -13,7 +13,7 @@ Aplikacija koristi podatke definisane u memoriji, bez potrebe za povezivanjem na
 ## 2. Autori projekta
 
 - **Studentica 1:** Berina Helvida
-- **Studentica 2:** Lamija [prezime dopuniti]
+- **Studentica 2:** Lamija Mehić
 
 ## 3. Korištene tehnologije
 

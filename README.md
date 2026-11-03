@@ -132,23 +132,14 @@ Aplikacija koristi unaprijed definisane podatke i ne zahtijeva bazu podataka.
 
 ## 10. Screenshotovi aplikacije
 
-Na ovom mjestu potrebno je dodati screenshotove aplikacije nakon pokretanja.
 
-Preporučeni screenshotovi:
 
-1. Lista sportskih utakmica (`/matches`).
-2. Lista sportskih klubova (`/teams`).
-3. Stranica za upravljanje demo prenosom (`/matches/action/1`).
+<img width="1843" height="457" alt="stranicaweb1" src="https://github.com/user-attachments/assets/50ae7df1-72a7-4229-b32c-a6238049baa7" />
+<img width="696" height="625" alt="stranicaweb3" src="https://github.com/user-attachments/assets/a6db4d09-2d22-4cb6-825a-bb91cf880cc1" />
+<img width="1851" height="715" alt="stranicaweb2" src="https://github.com/user-attachments/assets/c306cbca-f23c-4113-b87d-3521b5fb369f" />
 
-Screenshotovi se mogu dodati u repozitorij, na primjer u folder `screenshots`, a zatim prikazati u ovom dokumentu pomoću Markdown sintakse:
 
-```markdown
-![Lista utakmica](screenshots/utakmice.png)
 
-![Lista klubova](screenshots/klubovi.png)
-
-![Demo prenos](screenshots/prenos.png)
-```
 
 ## 11. Zaključak
 

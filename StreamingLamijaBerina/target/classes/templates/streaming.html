@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="bs" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Prenos utakmice</title>
+
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 24px;
+        }
+
+        nav a {
+            margin-right: 12px;
+        }
+
+        .card {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            max-width: 600px;
+        }
+
+        .success {
+            color: green;
+            font-weight: bold;
+        }
+
+        button {
+            padding: 10px 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <a th:href="@{/matches}">Utakmice</a>
+    <a th:href="@{/teams}">Klubovi</a>
+</nav>
+
+<h2>Sportski prenosi - Detalji utakmice</h2>
+
+<div class="card">
+
+    <h3 th:text="${match.title}"></h3>
+
+    <p>
+        ID utakmice:
+        <span th:text="${match.id}"></span>
+    </p>
+
+    <p>
+        Početak:
+        <span th:text="${#temporals.format(match.startTime, 'dd.MM.yyyy. HH:mm')}"></span>
+    </p>
+
+    <p>Timovi:</p>
+
+    <ul>
+        <li th:each="team : ${match.teams}"
+            th:text="${team.name}">
+        </li>
+    </ul>
+
+    <p>
+        Status prenosa:
+        <strong th:text="${match.streaming ? 'Pokrenut' : 'Zaustavljen'}">
+        </strong>
+    </p>
+
+    <p th:if="${success != null}"
+       class="success"
+       th:text="${success}">
+    </p>
+
+    <p>
+        Video link:
+        <a th:href="${match.streamUrl}"
+           target="_blank">
+            Otvori video
+        </a>
+    </p>
+
+    <form th:action="@{/matches/action/{id}(id=${match.id})}"
+          method="post">
+
+        <button type="submit"
+                th:text="${match.streaming ? 'Zaustavi prenos' : 'Pokreni prenos'}">
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+</html>

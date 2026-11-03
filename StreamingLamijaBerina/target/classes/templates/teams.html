@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="bs" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Klubovi</title>
+
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 24px;
+        }
+
+        nav a {
+            margin-right: 12px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <a th:href="@{/matches}">Utakmice</a>
+    <a th:href="@{/teams}">Klubovi</a>
+</nav>
+
+<h2>Sportski prenosi - Klubovi</h2>
+
+<table>
+
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Naziv kluba</th>
+        <th>Grad</th>
+        <th>Sport</th>
+        <th>Utakmice</th>
+    </tr>
+    </thead>
+
+    <tbody>
+
+    <tr th:each="team : ${teams}">
+
+        <td th:text="${team.id}"></td>
+
+        <td th:text="${team.name}"></td>
+
+        <td th:text="${team.city}"></td>
+
+        <td th:text="${team.sport}"></td>
+
+        <td>
+            <div th:each="match : ${team.matches}">
+                <a th:href="@{/matches/action/{id}(id=${match.id})}"
+                   th:text="${match.title}">
+                </a>
+            </div>
+        </td>
+
+    </tr>
+
+    </tbody>
+
+</table>
+
+</body>
+</html>

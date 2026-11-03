@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html lang="bs" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Utakmice</title>
+
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 24px;
+        }
+
+        nav a {
+            margin-right: 12px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <a th:href="@{/matches}">Utakmice</a>
+    <a th:href="@{/teams}">Klubovi</a>
+</nav>
+
+<h2>Sportski prenosi - Utakmice</h2>
+
+<table>
+
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Naziv utakmice</th>
+        <th>Timovi</th>
+        <th>Početak</th>
+        <th>Status prenosa</th>
+        <th>Akcija</th>
+    </tr>
+    </thead>
+
+    <tbody>
+
+    <tr th:each="match : ${matches}">
+
+        <td th:text="${match.id}"></td>
+
+        <td th:text="${match.title}"></td>
+
+        <td>
+            <div th:each="team : ${match.teams}"
+                 th:text="${team.name}">
+            </div>
+        </td>
+
+        <td th:text="${#temporals.format(match.startTime, 'dd.MM.yyyy. HH:mm')}"></td>
+
+        <td th:text="${match.streaming ? 'Pokrenut' : 'Zaustavljen'}"></td>
+
+        <td>
+            <a th:href="@{/matches/action/{id}(id=${match.id})}">
+                Otvori prenos
+            </a>
+        </td>
+
+    </tr>
+
+    </tbody>
+
+</table>
+
+</body>
+</html>

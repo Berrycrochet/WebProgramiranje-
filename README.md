@@ -1,8 +1,7 @@
 # WebProgramiranje-
-projekat za web programiranje
-# Streaming sportskih prenosa
+projekat za web programiranje Streaming sportskih prenosa
 
-PROJEKAT SE OTVARA SA FAJLOM SA Lab2 -brancha 
+# PROJEKAT SE OTVARA SA FAJLOM SA Lab2 -brancha 
 IZ FAJLA KOJI NIJE ZIPOVAN I ZOVE SE :🥇StreamingLamijaBerina
 
 Za logički tok kreiranja aplikacije pročitajte Dodatni ReadMe file 😊❤️

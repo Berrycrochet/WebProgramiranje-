@@ -5,6 +5,8 @@ projekat za web programiranje
 PROJEKAT SE OTVARA SA FAJLOM SA Lab2 -brancha 
 IZ FAJLA KOJI NIJE ZIPOVAN I ZOVE SE :🥇StreamingLamijaBerina
 
+Za logički tok kreiranja aplikacije pročitajte Dodatni ReadMe file 😊❤️
+
 ## 1. Opis projekta
 
 **Streaming sportskih prenosa** je web aplikacija razvijena korištenjem Spring Boot frameworka, Thymeleaf tehnologije i Java programskog jezika. Aplikacija omogućava pregled sportskih utakmica, pregled klubova koji učestvuju u utakmicama i upravljanje demo statusom sportskog prenosa.

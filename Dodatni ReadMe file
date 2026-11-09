@@ -1,0 +1,180 @@
+# Dodatna dokumentacija – Streaming Sportskih Prenosa
+
+## 1. Članovi tima
+
+- **Berina Helvida**
+- **Lamija Mehić**
+
+## 2. Cilj laboratorijske vježbe
+
+Cilj ove laboratorijske vježbe bio je proširiti postojeću aplikaciju Streaming Sportskih Prenosa dodavanjem novog modela i povezivanjem aplikacije s MySQL bazom podataka.
+
+U prethodnoj verziji aplikacije podaci o utakmicama i klubovima bili su definisani kroz postojeću strukturu projekta. U ovoj verziji dodali smo mogućnost ostavljanja komentara na određenu utakmicu, njihovog prikazivanja i pohranjivanja u bazu podataka.
+
+Na taj način aplikacija je proširena novom funkcionalnošću, a ujedno smo praktično primijenili rad s JPA anotacijama, repository klasama, MVC i REST kontrolerima.
+
+## 3. Logički tok izrade
+
+Prilikom proširivanja aplikacije prvo smo pregledale postojeće modele i način na koji su podaci organizovani. Nakon toga smo krenule s dodavanjem novog modela `Comment`.
+
+Rad smo organizovale kroz nekoliko koraka.
+
+### 3.1.2 Kreiranje Baze Podataka
+
+Prvo smo kreirale bazu podataka - streaming . Koju smo koristili za pohranivanje podataka .
+
+### 3.1. Kreiranje modela Comment
+
+Pa smo kreirale novu klasu `Comment`, koja predstavlja komentar koji korisnik može ostaviti na neku od dostupnih utakmica.
+
+Model sadrži sljedeće atribute:
+
+- `id` – jedinstveni identifikator komentara;
+- `author` – ime autora komentara;
+- `text` – sadržaj komentara;
+- `match` – utakmica na koju se komentar odnosi.
+
+Klasa je označena anotacijom `@Entity`, čime je definisano da se radi o modelu koji se mapira na tabelu u bazi podataka.
+
+### 3.2. Povezivanje modela i ostvarivanje relacije
+
+Nakon kreiranja modela `Comment`, bilo je potrebno povezati ga s već postojećim modelom `Match`.
+
+Između ova dva modela ostvarena je relacija **Many-to-One**.
+
+Ova relacija znači da jedan komentar pripada jednoj utakmici, dok jedna utakmica može imati više komentara.
+
+Za ostvarivanje relacije korištena je anotacija `@ManyToOne`, a pomoću `@JoinColumn` definisana je kolona koja predstavlja strani ključ u tabeli komentara.
+
+Na ovaj način svaki komentar je povezan s konkretnom utakmicom, što omogućava prikaz komentara uz odgovarajuću utakmicu.
+
+### 3.3. Kreiranje CommentRepository klase
+
+Nakon modela kreirana je klasa `CommentRepository`.
+
+I naravno napravile smo MatchRepository i TeamReository.
+
+Ona nasljeđuje `JpaRepository`, čime su omogućene osnovne operacije nad podacima bez potrebe za ručnim pisanjem SQL upita.
+
+Repository koristimo za:
+
+- dohvaćanje svih komentara;
+- spremanje novog komentara;
+- pronalaženje komentara prema njegovom identifikatoru.
+
+Na ovaj način kontroleri mogu pristupati podacima bez direktnog izvršavanja SQL upita.
+
+### 3.4. Ažuriranje DemoData
+
+Ažurirale smo DemoData da bude podudarna sa novim zahtjevima potrebnim da bi nam radila aplikacija.
+
+
+
+### 3.5. Implementacija običnog MVC kontrolera
+
+Obični MVC kontroler zadužen je za komunikaciju između korisnika, HTML stranica i podataka iz aplikacije.
+
+U okviru njega implementirana je funkcionalnost prikaza i dodavanja komentara.
+
+Logika rada je sljedeća:
+
+1. Korisnik otvara stranicu za komentare.
+2. Kontroler dohvaća postojeće komentare iz baze pomoću `CommentRepository`.
+3. Dohvaćaju se i dostupne utakmice kako bi korisnik mogao odabrati utakmicu na koju želi ostaviti komentar.
+4. Podaci se prosljeđuju Thymeleaf stranici.
+5. Korisnik popunjava formu unosom imena, teksta komentara i odabirom utakmice.
+6. Nakon slanja forme, kontroler preuzima unesene podatke.
+7. Pronalazi odabranu utakmicu i povezuje je s novim komentarom.
+8. Komentar se sprema u MySQL bazu pomoću repository klase.
+9. Korisnik se vraća na stranicu komentara, gdje se prikazuje i upravo dodani komentar.
+
+### 3.6. Implementacija REST kontrolera
+
+Pored običnog MVC kontrolera, implementiran je i REST kontroler koji omogućava pristup podacima o komentarima putem HTTP zahtjeva.
+
+Za razliku od MVC kontrolera, koji vraća HTML stranice, REST kontroler vraća podatke u JSON formatu.
+
+Na ovaj način moguće je dohvatiti i obrađivati podatke o komentarima bez otvaranja korisničkog interfejsa aplikacije.
+
+REST kontroler koristi isti `CommentRepository` za pristup podacima, tako da se podaci čuvaju na jednom mjestu i mogu se koristiti kroz oba kontrolera.
+
+REST funkcionalnosti mogu se testirati pomoću alata Postman slanjem odgovarajućih HTTP zahtjeva.
+
+### 3.7. Izrada stranice za komentare
+
+Za prikaz komentara korištena je Thymeleaf tehnologija.
+
+Kreirana je HTML stranica `comment.html`, koja sadrži tabelu za prikaz postojećih komentara i formu za unos novog komentara.
+
+Na stranici se prikazuju:
+
+- ime autora komentara;
+- tekst komentara;
+- naziv utakmice na koju se komentar odnosi.
+
+Forma omogućava unos potrebnih podataka i odabir utakmice iz ponuđene liste.
+
+Nakon dodavanja komentara stranica se ponovo učitava, a novi komentar postaje vidljiv u tabeli.
+
+## 4. Konfiguracija i povezivanje MySQL baze podataka
+
+Za pohranu komentara korištena je MySQL baza podataka pod nazivom `streaming`.
+
+Baza je kreirana i pregledana pomoću alata MySQL Workbench, dok je povezivanje s Java aplikacijom izvršeno kroz konfiguraciju u datoteci `application.properties`.
+
+U konfiguraciji su definisani:
+
+- naziv baze podataka;
+- adresa MySQL servera;
+- korisničko ime i lozinka za pristup;
+- JDBC driver;
+- postavke za Hibernate i JPA.
+
+Za komunikaciju s bazom koristi se Spring Data JPA, dok Hibernate omogućava mapiranje Java modela na odgovarajuće tabele.
+
+Na osnovu definisanih modela i njihovih relacija kreirane su odgovarajuće tabele u bazi. Tabela `comments` sadrži podatke o komentarima i strani ključ koji povezuje komentar s utakmicom.
+
+Kada korisnik doda komentar putem aplikacije, podaci se spremaju u bazu i ostaju dostupni i nakon ponovnog pokretanja aplikacije.
+
+## 5. Korištene tehnologije i alati
+
+- **Java** – programski jezik korišten za razvoj aplikacije.
+- **Spring Boot** – za razvoj i pokretanje aplikacije.
+- **Spring MVC** – za obradu zahtjeva i prikaz HTML stranica.
+- **Spring Data JPA** – za pristup podacima i rad s repository klasama.
+- **Hibernate** – za mapiranje Java modela na tabele baze podataka.
+- **Thymeleaf** – za dinamički prikaz podataka na HTML stranicama.
+- **MySQL** – za pohranu podataka.
+- **MySQL Workbench** – za pregled i upravljanje bazom.
+- **Postman** – za testiranje REST zahtjeva.
+- **IntelliJ IDEA** – razvojno okruženje.
+- **Maven** – za upravljanje zavisnostima projekta.
+
+## 6. Internet izvori i dokumentacija
+
+Tokom izrade i razumijevanja pojedinih dijelova aplikacije korištena je zvanična dokumentacija tehnologija koje su primijenjene u projektu, kao i online vodiči za dodatno pojašnjenje, kolegica je pretraživala po internetu i korstili smo i projekat koji smo ranije pravili.
+
+1. Spring Data JPA
+   [https://spring.io/projects/spring-data-jpa](https://spring.io/projects/spring-data-jpa)
+
+2. Spring Guide – Accessing Data with JPA
+   [https://spring.io/guides/gs/accessing-data-jpa/](https://spring.io/guides/gs/accessing-data-jpa/)
+
+3. Thymeleaf Documentation
+   [https://www.thymeleaf.org/documentation.html](https://www.thymeleaf.org/documentation.html)
+
+4. MySQL Reference Manual
+   [https://dev.mysql.com/doc/](https://dev.mysql.com/doc/)
+
+5. Hibernate ORM Documentation
+   [https://hibernate.org/orm/documentation/](https://hibernate.org/orm/documentation/)
+
+##
+
+## 7. Zaključak
+
+Proširivanjem postojeće aplikacije dodale smo mogućnost unosa i prikaza komentara vezanih za sportske utakmice.
+
+Kroz ovu laboratorijsku vježbu primijenile smo rad s novim JPA modelom, ostvarivanje relacija između entiteta, korištenje repository klase, implementaciju MVC i REST kontrolera te povezivanje Spring Boot aplikacije s MySQL bazom podataka.
+
+Na ovaj način postojeća aplikacija je proširena funkcionalnostima koje omogućavaju trajnije čuvanje podataka i pristup komentarima kroz korisnički interfejs i REST API.

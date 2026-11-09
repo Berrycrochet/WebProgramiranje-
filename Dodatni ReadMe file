@@ -19,11 +19,11 @@ Prilikom proširivanja aplikacije prvo smo pregledale postojeće modele i način
 
 Rad smo organizovale kroz nekoliko koraka.
 
-### 3.1.2 Kreiranje Baze Podataka
+### 3.1 Kreiranje Baze Podataka
 
 Prvo smo kreirale bazu podataka - streaming . Koju smo koristili za pohranivanje podataka .
 
-### 3.1. Kreiranje modela Comment
+### 3.1.2 Kreiranje modela Comment
 
 Pa smo kreirale novu klasu `Comment`, koja predstavlja komentar koji korisnik može ostaviti na neku od dostupnih utakmica.
 

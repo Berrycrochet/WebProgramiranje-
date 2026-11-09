@@ -138,12 +138,15 @@ Aplikacija koristi unaprijed definisane podatke i ne zahtijeva bazu podataka.
 <img width="696" height="625" alt="stranicaweb3" src="https://github.com/user-attachments/assets/a6db4d09-2d22-4cb6-825a-bb91cf880cc1" />
 <img width="1851" height="715" alt="stranicaweb2" src="https://github.com/user-attachments/assets/c306cbca-f23c-4113-b87d-3521b5fb369f" />
 
+Dodano iz drugog lab-a screenshotov-i Komentari stranice 
 
-<img src=""C:\Users\berin\OneDrive\Pictures\Screenshots\Snimka zaslona 2026-11-09 153648.png"" alt="Prikaz komentara" width="700">
+<h3>Prikaz aplikacije</h3>
 
-<img src=""C:\Users\berin\OneDrive\Pictures\Screenshots\Snimka zaslona 2026-11-09 153728.png"" alt="Prikaz komentara" width="700">
-<img src=""C:\Users\berin\OneDrive\Pictures\Screenshots\Snimka zaslona 2026-11-09 153749.png"" alt="Prikaz komentara" width="700">
+<img width="900" alt="Komentari" src="Snimke zaslona/1.png" />
 
+<img width="900" alt="Dodavanje komentara" src="Snimke zaslona/2.png" />
+
+<img width="900" alt="Json prikaz " src="Snimke zaslona/3.png" />
 
 ## 11. Zaključak
 

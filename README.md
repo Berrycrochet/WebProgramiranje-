@@ -139,6 +139,10 @@ Aplikacija koristi unaprijed definisane podatke i ne zahtijeva bazu podataka.
 <img width="1851" height="715" alt="stranicaweb2" src="https://github.com/user-attachments/assets/c306cbca-f23c-4113-b87d-3521b5fb369f" />
 
 
+<img src=""C:\Users\berin\OneDrive\Pictures\Screenshots\Snimka zaslona 2026-11-09 153648.png"" alt="Prikaz komentara" width="700">
+
+<img src=""C:\Users\berin\OneDrive\Pictures\Screenshots\Snimka zaslona 2026-11-09 153728.png"" alt="Prikaz komentara" width="700">
+<img src=""C:\Users\berin\OneDrive\Pictures\Screenshots\Snimka zaslona 2026-11-09 153749.png"" alt="Prikaz komentara" width="700">
 
 
 ## 11. Zaključak

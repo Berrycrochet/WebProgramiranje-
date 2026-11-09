@@ -106,6 +106,43 @@ public class AppController {
         return "redirect:/comments";
     }
 
+    // Otvaranje forme za izmjenu komentara
+    @GetMapping("/comments/{id}/edit")
+    public String editComment(@PathVariable Long id, Model model) {
+
+        Comment comment = commentRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Komentar nije pronađen."));
+
+        model.addAttribute("comments", commentRepository.findAll());
+        model.addAttribute("matches", data.findAllMatches());
+        model.addAttribute("comment", comment);
+
+        return "comment";
+    }
+
+    // Čuvanje izmjena komentara
+    @PostMapping("/comments/{id}/update")
+    public String updateComment(
+            @PathVariable Long id,
+            @ModelAttribute Comment updatedComment,
+            @RequestParam Long matchId) {
+
+        Comment comment = commentRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Komentar nije pronađen."));
+
+        Match match = requireMatch(matchId);
+
+        comment.setAuthor(updatedComment.getAuthor());
+        comment.setText(updatedComment.getText());
+        comment.setMatch(match);
+
+        commentRepository.save(comment);
+
+        return "redirect:/comments";
+    }
+
     // Provjera postoji li utakmica
     private Match requireMatch(Long id) {
 

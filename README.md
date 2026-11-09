@@ -142,11 +142,16 @@ Dodano iz drugog lab-a screenshotov-i Komentari stranice
 
 <h3>Prikaz aplikacije</h3>
 
-<img width="900" alt="Komentari" src="Snimke zaslona/1.png" />
+<img width="1844" height="864" alt="1" src="https://github.com/user-attachments/assets/1d438580-4528-4333-947f-ec0ec832cd86" />
+<img width="1849" height="759" alt="2" src="https://github.com/user-attachments/assets/aaa148f8-c2d7-41a0-844f-834b4e5322b2" />
 
-<img width="900" alt="Dodavanje komentara" src="Snimke zaslona/2.png" />
+<img width="1846" height="303" alt="3" src="https://github.com/user-attachments/assets/00659ed3-fece-41ed-806a-b954fcb8d836" />
 
-<img width="900" alt="Json prikaz " src="Snimke zaslona/3.png" />
+<h3>Prikaz podataka u MySql Bazi </h3>
+<img width="1081" height="1024" alt="Snimka zaslona 2026-11-09 160242" src="https://github.com/user-attachments/assets/f0149d7b-d31f-463c-aa4b-befedc9d3df7" />
+<img width="1081" height="1025" alt="Snimka zaslona 2026-11-09 160317" src="https://github.com/user-attachments/assets/e1842235-ef08-4286-8e29-e657279b0c19" />
+
+
 
 ## 11. Zaključak
 

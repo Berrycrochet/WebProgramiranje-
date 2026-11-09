@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="bs" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Komentari utakmica</title>
+
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 24px;
+        }
+
+        nav a {
+            margin-right: 12px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        form {
+            max-width: 500px;
+            margin-top: 24px;
+        }
+
+        input, textarea, select {
+            display: block;
+            box-sizing: border-box;
+            width: 100%;
+            margin: 8px 0 16px;
+            padding: 8px;
+        }
+
+        button {
+            padding: 10px 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <a th:href="@{/matches}">Utakmice</a>
+    <a th:href="@{/teams}">Klubovi</a>
+    <a th:href="@{/comment}">Komentari</a>
+    <a th:href="@{/api/comments}">JSON komentari</a>
+</nav>
+
+<h2>Komentari utakmica</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Autor</th>
+        <th>Komentar</th>
+        <th>Utakmica</th>
+        <th>Akcija</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="item : ${comments}">
+        <td th:text="${item.id}"></td>
+        <td th:text="${item.author}"></td>
+        <td th:text="${item.text}"></td>
+        <td th:text="${item.match.title}"></td>
+        <td>
+            <a th:href="@{/comments/{id}/edit(id=${item.id})}">
+                Izmijeni
+            </a>
+        </td>
+    </tr>
+
+    <tr th:if="${#lists.isEmpty(comments)}">
+        <td colspan="5">Još nema komentara.</td>
+    </tr>
+    </tbody>
+</table>
+
+<h3 th:text="${comment.id == null
+        ? 'Dodaj komentar' : 'Izmijeni komentar'}">
+</h3>
+
+<form method="post"
+      th:object="${comment}"
+      th:action="${comment.id == null}
+          ? @{/comments}
+          : @{/comments/{id}/update(id=${comment.id})}">
+
+    <label for="author">Autor</label>
+    <input id="author"
+           type="text"
+           th:field="*{author}"
+           maxlength="100"
+           required>
+
+    <label for="text">Komentar</label>
+    <textarea id="text"
+              th:field="*{text}"
+              rows="4"
+              maxlength="2000"
+              required></textarea>
+
+    <label for="matchId">Utakmica</label>
+    <select id="matchId" name="matchId" required>
+        <option value="">Odaberi utakmicu</option>
+
+        <option th:each="match : ${matches}"
+                th:value="${match.id}"
+                th:text="${match.title}"
+                th:selected="${comment.match != null
+                    and comment.match.id == match.id}">
+        </option>
+    </select>
+
+    <button type="submit"
+            th:text="${comment.id == null
+                ? 'Dodaj komentar' : 'Sačuvaj izmjene'}">
+    </button>
+
+    <a th:href="@{/comments}">Odustani / očisti formu</a>
+</form>
+
+</body>
+</html>

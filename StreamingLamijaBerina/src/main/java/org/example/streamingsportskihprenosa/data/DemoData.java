@@ -4,89 +4,84 @@ package org.example.streamingsportskihprenosa.data;
 import org.springframework.stereotype.Component;
 import org.example.streamingsportskihprenosa.Models.Match;
 import org.example.streamingsportskihprenosa.Models.Team;
+import org.example.streamingsportskihprenosa.repository.MatchRepository;
+import org.example.streamingsportskihprenosa.repository.TeamRepository;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
-import java.util.ArrayList;
 import java.time.LocalDateTime;
 
 @Component
-public class DemoData {
+public class DemoData implements CommandLineRunner{
 
-    private final List<Team> teams = new ArrayList<>();
-    private final List<Match> matches = new ArrayList<>();
+    private final MatchRepository matchRepository;
+    private final TeamRepository teamRepository;
 
-    public DemoData() {
+    public DemoData(
+            MatchRepository matchRepository,
+            TeamRepository teamRepository
+    ){
+
+        this.matchRepository = matchRepository;
+        this.teamRepository=teamRepository;
+    }
+
+
+    @Override
+    @Transactional
+    public void  run(String... args) {
+        if (matchRepository.count() > 0 || teamRepository.count() > 0) {
+            return;
+        }
+
 
         // Kreiranje klubova
-        Team t1 = new Team(1L, "Zeljeznicar", "Sarajevo", "Fudbal");
-        Team t2 = new Team(2L, "Celik", "Zenica", "Fudbal");
-        Team t3 = new Team(3L, "Velez", "Mostar", "Fudbal");
+        Team t1 = teamRepository.save(new Team(null, "Zeljeznicar", "Sarajevo", "Fudbal"));
+        Team t2 = teamRepository.save(new Team(null, "Celik", "Zenica", "Fudbal"));
+        Team t3 = teamRepository.save(new Team(null, "Velez", "Mostar", "Fudbal"));
 
-        teams.addAll(List.of(t1, t2, t3));
-
-        // Video link za demonstracijski prenos
-        String video = "https://www.youtube.com/watch?v=xWkvDKrSZ2k";
-
-        // Kreiranje utakmica
-        Match m1 = new Match(
-                1L,
-                "Zeljeznicar - Celik",
-                LocalDateTime.of(2026, 11, 10, 18, 0),
-                video
-        );
-
-        Match m2 = new Match(
-                2L,
-                "Celik - Velez",
-                LocalDateTime.of(2026, 11, 12, 19, 0),
-                video
-        );
-
-        Match m3 = new Match(
-                3L,
-                "Zeljeznicar - Velez",
-                LocalDateTime.of(2026, 11, 15, 20, 0),
-                video
-        );
 
         // Povezivanje klubova i utakmica
-        addMatch(m1, t1, t2);
-        addMatch(m2, t2, t3);
-        addMatch(m3, t1, t3);
+        addMatch("Zeljeznicar - Celik", LocalDateTime.of(2026, 11, 10, 18, 0), t1, t2);
+        addMatch("Celik - Velez", LocalDateTime.of(2026, 11, 12, 19, 0), t2, t3);
+        addMatch("Zeljeznicar - Velez", LocalDateTime.of(2026, 11, 15, 20, 0), t1, t3);
+
     }
 
     // Dodavanje utakmice i povezivanje sa klubovima
-    private void addMatch(Match match, Team first, Team second) {
+    private void addMatch(String title, LocalDateTime startTime, Team first, Team second) {
+
+        Match match = new Match(
+                null,
+                title,
+                startTime,
+                "https://www.youtube.com/watch?v=xWkvDKrSZ2k"
+        );
 
         match.getTeams().add(first);
         match.getTeams().add(second);
-
-        first.getMatches().add(match);
-        second.getMatches().add(match);
-
-        matches.add(match);
+        matchRepository.save(match);
     }
 
     // Pronalazak svih klubova
     public List<Team> findAllTeams() {
-        return teams;
+        return teamRepository.findAll();
     }
 
     // Pronalazak svih utakmica
     public List<Match> findAllMatches() {
-        return matches;
+        return matchRepository.findAll();
     }
 
     // Pronalazak utakmice prema ID-u
     public Match findMatch(Long id) {
+        return matchRepository.findById(id).orElse(null);
+    }
 
-        for (Match match : matches) {
-
-            if (match.getId().equals(id)) {
-                return match;
-            }
-        }
-
-        return null;
+    public void saveMatch(Match match){
+        matchRepository.save(match);
     }
 }
+
